@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
 import axios from 'axios'; 
 
 const client = axios.create({ baseURL: 'https://dog.ceo/api/breeds/image/random'});
 
-export const get = async () =>{
+const get = async () =>{  //export
   return client.get('').then(response => response.data)
   .catch(error => {
     console.log(error)
@@ -12,7 +13,7 @@ export const get = async () =>{
   });
 }
 
-export const post = async (data) =>{
+const post = async (data) =>{ //export
   return client.post('', {...data}).then(response => response.data)
   .catch(error => {
     console.log(error)
@@ -22,10 +23,13 @@ export const post = async (data) =>{
 
 
 
+
+
 export default function App() {
   return (
     <View style={styles.container}>
       <Text>AUGHHHHHHHHHHHHH</Text>
+
       <StatusBar style="auto" />
     </View>
   );
