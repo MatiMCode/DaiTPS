@@ -1,58 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, TextInput } from 'react-native';
 import { useState, useEffect } from 'react';
-
+import React from 'react';
 import axios from 'axios'; 
+import LogIn from './Views/LogIn';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './Views/Home';
 
-const client = axios.create({ baseURL: 'https://dog.ceo/api/breeds/image/random'});
-
-
-const post = async (data) =>{ //export
-  return client.post('', {...data}).then(response => response.data)
-  .catch(error => {
-    console.log(error)
-    throw error;
-  });
-}
-
-
-
-
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [loading, setLoading] = useState(false);
-  const [perro, setPerro] = useState('')
-  const getPerro = async () =>{
-    console.log('loading')
-    setLoading(true);
-    axios.get('https://dog.ceo/api/breeds/image/random', {})
-      .then(function (response) {
-       // console.log(response.data.message +'a');
-       console.log('loaded')
-
-       setLoading(false)
-        setPerro(response.data.message)
-        console.log(perro)
-      })
-      .catch(function (error) {
-          console.log(error);
-      })
-      .then(function () {
-          // always executed
-      });
-  }
 
   return (
-    <View style={styles.container}>
-      <Button onPress={getPerro} title='press for doggo'/>
-      <Text>{loading?'loading':'loaded'}</Text>
-      <Image
-        style={styles.stretch}
-        source={perro}
-      />
-
-      <StatusBar style="auto" />
-    </View>
+    <>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Log In">
+        <Stack.Screen name="Log In" component={LogIn} />
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    </>
   );
 }
 
@@ -66,5 +34,10 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     resizeMode: 'stretch',
+  },input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
   },
 });
