@@ -1,7 +1,7 @@
 import { Text } from "react-native"
 export default function Home({route, navigation}){
-    console.log(navigation)
+    const apikey = route.params;
     return(
-        <Text>{}</Text>
+        <Text>{apikey}</Text>
     )
 }

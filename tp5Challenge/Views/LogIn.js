@@ -1,7 +1,8 @@
-import { StyleSheet, View, TextInput, Button,Text } from "react-native"
+import { StyleSheet, View, TextInput, Button,Text, TouchableOpacity } from "react-native"
 import { useState } from "react"
 import axios from "axios"
 export default function LogIn({navigation}){
+//challenge@alkemy.org
 
     const [mail, setMail] = useState('')
     const [contra, setContra] = useState('')
@@ -12,34 +13,39 @@ export default function LogIn({navigation}){
         axios.post('http://challenge-react.alkemy.org/?email='+email+'&password='+contra,{})
         .then(function (response){
             setCargando(false)
-          console.log(response.data.token)
           navigation.navigate('Home', response.data.token)
           return response.data.token
         })
         .catch(function (error){
             setCargando(false)
             setError(true)
-            console.log(error)
         })
       }
 
     return(
-        <View>
+        <View style={styles.container}>
         <TextInput
           style={styles.input}
-          onChangeText={()=>{setMail(event.target.value)}}
+          onChangeText={newMail => setMail(newMail)}
           placeholder="ingresar mail"
-          keyboardType="numeric"
+          keyboardType="default"
+          defaultValue="challenge@alkemy.org"
         />
         <TextInput
           secureTextEntry={true}
           style={styles.input}
-          onChangeText={()=>{setContra(event.target.value)}}
+          onChangeText={newContra => setContra(newContra)}
           placeholder="ingresar contraseña"
-          keyboardType="numeric"
+          keyboardType="default"
+          defaultValue="react"
         />
         <Text>{error?'Contraseña o usuario incorrecto':''}</Text>
-        <Button onPress={()=>{validar(mail, contra)}} title={<Text>{cargando?'Cargando...':'Iniciar sesión'}</Text>}/>
+
+        <TouchableOpacity  onPress={()=>{validar(mail, contra)}}>
+          <View style={styles.btn}>
+            <Text style={{color:'white', fontWeight:'bold'}}>{cargando?'Cargando...':'Iniciar sesión'}</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     )
 }
@@ -49,17 +55,20 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
-      justifyContent: 'center',
-    },stretch: {
-      width: 200,
-      height: 200,
-      resizeMode: 'stretch',
     },input: {
-      height: 40,
+      width:300,
       margin: 12,
       borderWidth: 1,
-      padding: 10,
-    },socotroco:{
-        color:'white'
+      padding: 8,
+      borderRadius:5,
+    },btn:{
+        backgroundColor:'red',
+        alignItems:'center',
+        padding:8,
+        borderRadius:5,
+        width:300
     }
   });
+
+
+  
