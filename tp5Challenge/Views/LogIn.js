@@ -4,8 +4,8 @@ import axios from "axios"
 export default function LogIn({navigation}){
 //challenge@alkemy.org
 
-    const [mail, setMail] = useState('')
-    const [contra, setContra] = useState('')
+    const [mail, setMail] = useState('challenge@alkemy.org')
+    const [contra, setContra] = useState('react')
     const [error, setError] = useState(false)
     const [cargando, setCargando] = useState(false)
     const validar = async (email, contra) =>{
