@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native"
 import React from "react";
 import MenuItem from "../Components/MenuItem";
@@ -7,7 +7,7 @@ import { RecipesProvider } from "../Components/RecipeContext";
 import MenuList from "../Components/MenuList";
 export default function Home({route, navigation}){
     //const apikey = route.params; esta key no anda xd
-    //const apiKey = 'd682eb7f50ff4a33a3f48ed024fe5479'
+    //const apiKey = '9d011376615d43b78d523af4e6e1fc9b'
     const things = [
         {id: 1, name: 'thing 1', length: 5},
         {id: 2, name: 'thing 2', length: 2},
@@ -15,10 +15,27 @@ export default function Home({route, navigation}){
         {id: 4, name: 'thing 4', length: 10},
         {id: 5, name: 'thing 5', length: 1}
     ]
+
+    const [recipes, setRecipes] = useState([]);
+
+    const getRecipes = async () => {
+        const {data} = await axios.get('https://api.spoonacular.com/recipes/complexSearch/?apiKey=9d011376615d43b78d523af4e6e1fc9b&%20diet=vegan&number=2')
+        //console.log(data)
+        return data
+    }
+
+
+    useEffect(()=>{
+        getRecipes().then(function(value){setRecipes(value.results)})
+    },[])
+
+    console.log(recipes)
     return (
         <View>
-            <RecipesProvider value={things}>
-                <MenuList/>
+            <RecipesProvider value={recipes}>
+                <View style={styles.container}>
+                    <MenuList/>
+                </View>
             </RecipesProvider>
         </View>
     )
@@ -26,20 +43,6 @@ export default function Home({route, navigation}){
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
       alignItems: 'center',
-    },input: {
-      width:300,
-      margin: 12,
-      borderWidth: 1,
-      padding: 8,
-      borderRadius:5,
-    },btn:{
-        backgroundColor:'red',
-        alignItems:'center',
-        padding:8,
-        borderRadius:5,
-        width:300
-    }
+    },
   });

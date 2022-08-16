@@ -1,19 +1,30 @@
 import { useContext } from "react";
-import { StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import MenuItem from "./MenuItem";
 import RecipesContext from "./RecipeContext";
+import React from "react";
+//      {things.map((e,index)=>{return(<MenuItem key={index} Item={e}/>)})}
 
 export default function MenuList(){
   const things = useContext(RecipesContext)
+  
+  const renderMenuItem = (recipe) =>(
+    <MenuItem item={recipe.item}/>
+  )
+  
   return (
-    <View style={styles.grid}>
-      {things.map((e,index)=>{return(<MenuItem key={index} Item={e}/>)})}
-    </View>
+    <FlatList
+    data={things}
+    numColumns={2}
+    renderItem={renderMenuItem}
+    style={styles.list}
+    columnWrapperStyle={{justifyContent:'center'}}
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  grid:{
-    flex:4,
+  list:{
+    width:'100%',
   }
 })
