@@ -8,13 +8,36 @@ export default function LogIn({navigation}){
     const [contra, setContra] = useState('react')
     const [error, setError] = useState(false)
     const [cargando, setCargando] = useState(false)
+    const [recipes, setRecipes] = useState([])
+    const getVeganRecipes = async () => {
+      const {data} = await axios.get('https://api.spoonacular.com/recipes/complexSearch/?apiKey=9d011376615d43b78d523af4e6e1fc9b&%20diet=vegan&number=2&addRecipeInformation=true')
+      return data.results
+  }
+
+  const getNormalRecipes = async () => {
+      const {data} = await axios.get('https://api.spoonacular.com/recipes/complexSearch/?apiKey=9d011376615d43b78d523af4e6e1fc9b&%20diet=Whole30&number=3&offset=60&addRecipeInformation=true')
+      return data.results
+  }
+
     const validar = async (email, contra) =>{
         setCargando(true)
         axios.post('http://challenge-react.alkemy.org/?email='+email+'&password='+contra,{})
         .then(function (response){
-            setCargando(false)
-          navigation.navigate('Home', response.data.token)
-          return response.data.token
+          setCargando(false)
+          getVeganRecipes()
+          .then(
+            function(vegan){
+              getNormalRecipes()
+              .then(
+                function(normal){
+                  setRecipes([...vegan, ...normal])
+                  console.log(recipes)
+                }
+              )
+            }
+          )
+          //navigation.navigate('Home', recipes)
+          //return recipes
         })
         .catch(function (error){
             setCargando(false)

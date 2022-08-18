@@ -18,15 +18,12 @@ export default function Home({route, navigation}){
 
     const [recipes, setRecipes] = useState([]);
 
-    const getRecipes = async () => {
-        const {data} = await axios.get('https://api.spoonacular.com/recipes/complexSearch/?apiKey=9d011376615d43b78d523af4e6e1fc9b&%20diet=vegan&number=2')
-        //console.log(data)
-        return data
-    }
+    
 
 
     useEffect(()=>{
-        getRecipes().then(function(value){setRecipes(value.results)})
+        console.log(navigation)
+        
     },[])
 
     console.log(recipes)
