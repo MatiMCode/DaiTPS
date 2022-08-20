@@ -1,5 +1,5 @@
 import { StyleSheet, View, TextInput, Button,Text, TouchableOpacity } from "react-native"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import axios from "axios"
 export default function LogIn({navigation}){
 //challenge@alkemy.org
@@ -8,38 +8,42 @@ export default function LogIn({navigation}){
     const [contra, setContra] = useState('react')
     const [error, setError] = useState(false)
     const [cargando, setCargando] = useState(false)
-    const [recipes, setRecipes] = useState([])
+    const [recipes, setRecipes] = useState(false)
+    
     const getVeganRecipes = async () => {
-      const {data} = await axios.get('https://api.spoonacular.com/recipes/complexSearch/?apiKey=9d011376615d43b78d523af4e6e1fc9b&%20diet=vegan&number=2&addRecipeInformation=true')
+      const {data} = await axios.get('https://api.spoonacular.com/recipes/complexSearch/?apiKey=9d011376615d43b78d523af4e6e1fc9b&%20diet=vegan&number=1&addRecipeInformation=true')
       return data.results
-  }
-
-  const getNormalRecipes = async () => {
-      const {data} = await axios.get('https://api.spoonacular.com/recipes/complexSearch/?apiKey=9d011376615d43b78d523af4e6e1fc9b&%20diet=Whole30&number=3&offset=60&addRecipeInformation=true')
+    }
+    
+    const getNormalRecipes = async () => {
+      const {data} = await axios.get('https://api.spoonacular.com/recipes/complexSearch/?apiKey=9d011376615d43b78d523af4e6e1fc9b&%20diet=Whole30&number=1&offset=60&addRecipeInformation=true')
       return data.results
-  }
+    }
 
-    const validar = async (email, contra) =>{
-        setCargando(true)
-        axios.post('http://challenge-react.alkemy.org/?email='+email+'&password='+contra,{})
-        .then(function (response){
-          setCargando(false)
-          getVeganRecipes()
+    useEffect(()=>{
+      getVeganRecipes()
           .then(
-            function(vegan){
+            (vegan)=>{
               getNormalRecipes()
               .then(
-                function(normal){
+                (normal)=>{
+                  console.log([...vegan, ...normal])
                   setRecipes([...vegan, ...normal])
-                  console.log(recipes)
                 }
               )
             }
           )
-          //navigation.navigate('Home', recipes)
-          //return recipes
+    },[])
+
+    const validar = async (email, contra) =>{
+        setCargando(true)
+        axios.post('http://challenge-react.alkemy.org/?email='+email+'&password='+contra,{})
+        .then(()=>{
+          setCargando(false)
+          console.log(recipes)
+          navigation.navigate('Home', {recipes:recipes})
         })
-        .catch(function (error){
+        .catch(function (){
             setCargando(false)
             setError(true)
         })
@@ -64,7 +68,7 @@ export default function LogIn({navigation}){
         />
         <Text>{error?'Contraseña o usuario incorrecto':''}</Text>
 
-        <TouchableOpacity  onPress={()=>{validar(mail, contra)}}>
+        <TouchableOpacity  onPress={()=>{!recipes?'':validar(mail, contra)}}>
           <View style={styles.btn}>
             <Text style={{color:'white', fontWeight:'bold'}}>{cargando?'Cargando...':'Iniciar sesión'}</Text>
           </View>
@@ -78,6 +82,7 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
+      paddingTop:100,
     },input: {
       width:300,
       margin: 12,

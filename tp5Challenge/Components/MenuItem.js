@@ -6,6 +6,7 @@ export default function MenuItem(props){
     <View style={styles.card}>
       <Image style={{width:'100%', height:100, borderRadius:'inherit'}} source={props.item.image}/>
       <Text style={{paddingVertical:3}}>{props.item.title}</Text>
+      <Text style={{marginBottom:3}}>{props.item.vegan?'Vegano':''}</Text>
       <View style={{flexDirection:'row'}}>
         <TouchableOpacity style={{flex:1,width:70,alignItems:'center',backgroundColor:'green', borderRadius:5, padding:3}}>
           <Text style={{color:'white',fontWeight:'bold'}}>Agregar</Text>
