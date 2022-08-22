@@ -6,12 +6,12 @@ import React from "react";
 //      {things.map((e,index)=>{return(<MenuItem key={index} Item={e}/>)})}
 
 export default function MenuList(){
-  const {recipes, setRecipes, deleteRecipe} = useContext(RecipesContext)
+  const {recipes, setRecipes, deleteRecipe, isSearch} = useContext(RecipesContext)
   console.log(recipes)
   
-
+  
   const renderMenuItem = (recipe) =>(
-    <MenuItem item={recipe.item} delete={deleteRecipe}/>
+    <MenuItem item={recipe.item} delete={deleteRecipe} isSearch={isSearch}/>
   )
   
   return (

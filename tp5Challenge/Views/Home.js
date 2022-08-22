@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native"
 import React from "react";
-import MenuItem from "../Components/MenuItem";
 import { RecipesProvider } from "../Components/RecipeContext";
 import MenuList from "../Components/MenuList";
 import SearchBtn from "../Components/SearchBtn";
@@ -19,12 +18,12 @@ export default function Home({route, navigation}){
 
     return (
         <>
-            <RecipesProvider value={{recipes:recipes, setRecipes:setRecipes, deleteRecipe:deleteRecipe}}>
+            <RecipesProvider value={{recipes:recipes, setRecipes:setRecipes, deleteRecipe:deleteRecipe, isSearch:false}}>
                 <View style={styles.container}>
                     <MenuList/>
                 </View>
             </RecipesProvider>
-                    <SearchBtn navigation={navigation}/>
+            <SearchBtn navigation={navigation}/>
         </>
     )
 }
