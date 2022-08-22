@@ -9,7 +9,7 @@ export default function LogIn({navigation}){
     const [error, setError] = useState(false)
     const [cargando, setCargando] = useState(false)
     const [recipes, setRecipes] = useState(false)
-    
+    /*
     const getVeganRecipes = async () => {
       const {data} = await axios.get('https://api.spoonacular.com/recipes/complexSearch/?apiKey=9d011376615d43b78d523af4e6e1fc9b&%20diet=vegan&number=1&addRecipeInformation=true')
       return data.results
@@ -19,8 +19,9 @@ export default function LogIn({navigation}){
       const {data} = await axios.get('https://api.spoonacular.com/recipes/complexSearch/?apiKey=9d011376615d43b78d523af4e6e1fc9b&%20diet=Whole30&number=1&offset=60&addRecipeInformation=true')
       return data.results
     }
-
+    */
     useEffect(()=>{
+      /*
       getVeganRecipes()
           .then(
             (vegan)=>{
@@ -33,6 +34,10 @@ export default function LogIn({navigation}){
               )
             }
           )
+        */
+       const data = require('../Components/fakeAPI.json')
+       console.log(data.results)
+       setRecipes(data.results)
     },[])
 
     const validar = async (email, contra) =>{
@@ -41,7 +46,7 @@ export default function LogIn({navigation}){
         .then(()=>{
           setCargando(false)
           console.log(recipes)
-          navigation.navigate('Home', {recipes:recipes})
+          navigation.navigate('Home', {recipes})
         })
         .catch(function (){
             setCargando(false)
@@ -79,7 +84,7 @@ export default function LogIn({navigation}){
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      height:'100%',
       backgroundColor: '#fff',
       alignItems: 'center',
       paddingTop:100,

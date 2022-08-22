@@ -4,14 +4,19 @@ export default function MenuItem(props){
   console.log(props.item)
   return (
     <View style={styles.card}>
-      <Image style={{width:'100%', height:100, borderRadius:'inherit'}} source={props.item.image}/>
+      <Image style={{width:'100%', height:100, borderRadius:20}} source={{uri:props.item.image}}/>
       <Text style={{paddingVertical:3}}>{props.item.title}</Text>
       <Text style={{marginBottom:3}}>{props.item.vegan?'Vegano':''}</Text>
-      <View style={{flexDirection:'row'}}>
-        <TouchableOpacity style={{flex:1,width:70,alignItems:'center',backgroundColor:'green', borderRadius:5, padding:3}}>
-          <Text style={{color:'white',fontWeight:'bold'}}>Agregar</Text>
+      <Text style={{flex:1, padding:3, alignItems:'baseline'}}>${props.item.pricePerServing}</Text>
+      <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+        <TouchableOpacity style={{flex:1,alignItems:'center',backgroundColor:'green', borderRadius:5, padding:3, marginRight:6}}>
+          <Text style={{color:'white',fontWeight:'bold'}}>Ver info</Text>
         </TouchableOpacity>
-        <Text style={{flex:2, padding:3}}>${props.item.pricePerServing}</Text>
+        <TouchableOpacity 
+        style={{flex:1,alignItems:'center',backgroundColor:'red', borderRadius:5, padding:3}}
+        onPress={()=>{props.delete(props.item.id)}}>
+          <Text style={{color:'white',fontWeight:'bold'}}>Eliminar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -23,6 +28,6 @@ const styles = StyleSheet.create({
     borderRadius:20,
     padding:10,
     margin:5,
-    width:'40%'
+    width:'40%',
   },
 })
