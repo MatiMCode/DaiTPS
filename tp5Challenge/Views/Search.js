@@ -7,7 +7,7 @@ export default function Search(){
   const [recipes, setRecipes] = useState([])
   
   const searchRecipes = async (input) => {
-    const {data} = await axios.get('https://api.spoonacular.com/recipes/complexSearch/?apiKey=9d011376615d43b78d523af4e6e1fc9b&%20diet=vegan&number=1&addRecipeInformation=true&query='+input)
+    const {data} = await axios.get('https://api.spoonacular.com/recipes/complexSearch/?apiKey=9d011376615d43b78d523af4e6e1fc9b&%20diet=vegan&number=15&addRecipeInformation=true&query='+input)
     return data.results
   }
 
@@ -38,33 +38,36 @@ export default function Search(){
   )
   
   return(
+    <>
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        onChangeText={search=>{handleSearch(search)}}
-        placeholder="Buscar Receta"
-        keyboardType="default"
-        defaultValue=""
-      />
-      <Text>{recipesToAdd.length} plato/s agregados</Text>
-      <FlatList 
-      data={recipes}
-      numColumns={2}
-      renderItem={renderMenuItem}
-      style={styles.list}
-      columnWrapperStyle={{justifyContent:'center'}}
-      />
+        <TextInput
+          style={styles.input}
+          onChangeText={search=>{handleSearch(search)}}
+          placeholder="Buscar Receta"
+          keyboardType="default"
+          defaultValue=""
+        />
+        <Text>{recipesToAdd.length} plato/s agregados</Text>
+        <FlatList 
+        data={recipes}
+        numColumns={2}
+        renderItem={renderMenuItem}
+        style={styles.list}
+        columnWrapperStyle={{justifyContent:'center'}}
+        />
     </View>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     height:'100%',
-    backgroundColor: '#fff',
     alignItems: 'center',
+    paddingTop:60
   },input: {
-    width:300,
+    width:'80%',
+    height:60,
     margin: 12,
     borderWidth: 1,
     padding: 8,
