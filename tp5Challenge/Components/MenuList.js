@@ -7,9 +7,6 @@ import React from "react";
 
 export default function MenuList(){
   const {recipes, setRecipes, deleteRecipe, isSearch} = useContext(RecipesContext)
-  console.log(recipes)
-  
-  
   const renderMenuItem = (recipe) =>(
     <MenuItem item={recipe.item} delete={deleteRecipe} isSearch={isSearch}/>
   )

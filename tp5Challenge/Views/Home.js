@@ -9,12 +9,13 @@ export default function Home({route, navigation}){
     //const apikey = route.params; esta key no anda xd
     //const apiKey = '9d011376615d43b78d523af4e6e1fc9b'
     
-    const [recipes, setRecipes] = useState(route.params.recipes)
-    console.log(recipes)
+    const [recipes, setRecipes] = useState([])
+    useEffect(()=>{setRecipes(route.params.recipes)},[route])
     const deleteRecipe = (id) => {
-        console.log(id)
         setRecipes(recipes.filter(recipe => recipe.id!=id))
-      }
+    }
+    
+    useEffect(()=>{console.log(recipes)})
 
     return (
         <>
@@ -22,8 +23,8 @@ export default function Home({route, navigation}){
                 <View style={styles.container}>
                     <MenuList/>
                 </View>
+                <SearchBtn navigation={navigation}/>
             </RecipesProvider>
-            <SearchBtn navigation={navigation}/>
         </>
     )
 }

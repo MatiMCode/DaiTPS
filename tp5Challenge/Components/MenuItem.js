@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image, Touchable, TouchableOpacity } from "reac
 
 export default function MenuItem(props){
   const [added, setAdded] = useState(false)
-  console.log(props.item)
   return (
     <View style={styles.card}>
       <Image style={{width:'100%', height:100, borderRadius:20}} source={{uri:props.item.image}}/>

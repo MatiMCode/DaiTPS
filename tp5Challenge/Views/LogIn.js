@@ -36,7 +36,6 @@ export default function LogIn({navigation}){
           )
         */
        const data = require('../Components/fakeAPI.json')
-       console.log(data.results)
        setRecipes(data.results)
     },[])
 
@@ -45,10 +44,9 @@ export default function LogIn({navigation}){
         axios.post('http://challenge-react.alkemy.org/?email='+email+'&password='+contra,{})
         .then(()=>{
           setCargando(false)
-          console.log(recipes)
           navigation.navigate('Home', {recipes})
         })
-        .catch(function (){
+        .catch(()=>{
             setCargando(false)
             setError(true)
         })
