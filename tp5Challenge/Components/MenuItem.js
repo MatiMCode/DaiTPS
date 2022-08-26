@@ -19,7 +19,8 @@ export default function MenuItem(props){
         </>
         :
         <>
-        <TouchableOpacity style={{flex:1,alignItems:'center',backgroundColor:'green', borderRadius:5, padding:3, marginRight:6}}>
+        <TouchableOpacity style={{flex:1,alignItems:'center',backgroundColor:'green', borderRadius:5, padding:3, marginRight:6}}
+        onPress={()=>{props.navigation.navigate('Ver Plato')}}>
           <Text style={{color:'white',fontWeight:'bold'}}>Ver info</Text>
         </TouchableOpacity>
         <TouchableOpacity 

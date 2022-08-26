@@ -66,7 +66,7 @@ export default function Search({route, navigation}){
             defaultValue=""
           />
           <TouchableOpacity 
-          style={{backgroundColor:'green', marginLeft:10, padding:5, borderRadius:5, flex:2, paddingVertical:8,textAlign:"center",}}
+          style={{backgroundColor:'green', flex:2, borderRadius:5, marginLeft:10, alignItems:"center",justifyContent:"center"}}
           onPress={handleSubmit}
           >
             <Text style={{color:'white', fontWeight:"bold"}}>Listo</Text>
@@ -87,7 +87,6 @@ export default function Search({route, navigation}){
 
 const styles = StyleSheet.create({
   container: {
-    height:'100%',
     alignItems: 'center',
     paddingTop:60
   },input: {

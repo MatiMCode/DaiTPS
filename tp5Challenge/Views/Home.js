@@ -19,7 +19,7 @@ export default function Home({route, navigation}){
 
     return (
         <>
-            <RecipesProvider value={{recipes:recipes, setRecipes:setRecipes, deleteRecipe:deleteRecipe, isSearch:false}}>
+            <RecipesProvider value={{recipes:recipes, setRecipes:setRecipes, deleteRecipe:deleteRecipe, isSearch:false, navigation:navigation}}>
                 <View style={styles.container}>
                     <MenuList/>
                 </View>
